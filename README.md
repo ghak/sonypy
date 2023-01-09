@@ -4,8 +4,11 @@ This is a simple project to remotely control sony cameras interacting with the s
 Available features:
 ===================
 -Device discovery by wifi
+
 -Record Mode Start (doesn't mean recording with camera. more like a state were the camera answers the API)
+
 -Detection of supported preview resolutions
+
 -Preview of camera on computer (could be used with OBS studio)
 
 Refs:
