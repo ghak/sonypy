@@ -7,7 +7,7 @@ import device_discovery as dd
 
 class Camera:
     def __init__(self, search_interval=5, interface='eth0'):
-        a6000 = dd.DeviceDiscovery(interface='wlp4s0f0')
+        a6000 = dd.DeviceDiscovery(interface=interface)
         self.host, self.port, self.headers = a6000.run()
         if self.host==False:
             print("Error: Can't connect to device")
