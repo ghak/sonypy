@@ -51,10 +51,10 @@ class Camera:
             '</av:X_ScalarWebAPI_ServiceType>'
             '\s*'
             '<av:X_ScalarWebAPI_ActionList_URL>'
-            '(.+?)'                               # and also strip '/sony'
+            '(.+?)'                             
             '</av:X_ScalarWebAPI_ActionList_URL>'
             '\s*'
-            '<av:X_ScalarWebAPI_AccessType\s*/>'  # Note: QX10 has 'Type />', HX60 has 'Type/>'
+            '<av:X_ScalarWebAPI_AccessType\s*/>' 
             '\s*'
             '</av:X_ScalarWebAPI_Service>')
 
