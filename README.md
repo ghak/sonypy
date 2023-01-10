@@ -3,6 +3,14 @@ This is a simple project to remotely control sony cameras interacting with the s
 
 (Tested on a Sony a6000 firmware 3.21)
 
+Requirement:
+============
+Python3
+
+Opencv
+
+Customtkinter
+
 Available features:
 ===================
 -Device discovery by wifi
@@ -20,5 +28,7 @@ https://github.com/Staacks/there.oughta.be/tree/master/photo-trap
 https://github.com/Bloodevil/sony_camera_api.git
 
 https://developer.sony.com/develop/cameras/
+
+https://github.com/TomSchimansky/CustomTkinter
 
 Camera Remote API by Sony
