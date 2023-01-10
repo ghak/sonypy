@@ -16,13 +16,14 @@ class DeviceDiscovery(threading.Thread):
     # 30 seconds for search_interval
     
 
-    def __init__(self, search_interval=5, interface='eth0'):
+    def __init__(self, search_interval=5, interface='wlp4s0f0'):
         self.SEARCH_INTERVAL = search_interval
         self.SSDP_ADDR = '239.255.255.250'
         self.SSDP_PORT = 1900
         self.SSDP_MX = 1;
         self.SSDP_ST = "urn:schemas-sony-com:service:ScalarWebAPI:1";
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        print(interface)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BINDTODEVICE, interface.encode('utf-8'))
         self.sock.settimeout(5)
         threading.Thread.__init__(self)

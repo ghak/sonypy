@@ -13,6 +13,7 @@ class Camera:
             print("Error: Can't connect to device")
             sys.exit(1)
         self.services = self.xml_parser(self.headers['location'])
+        self.remote_started = False
         
     def start_remote_mode(self):
         print("Connecting to camera...")
@@ -20,10 +21,23 @@ class Camera:
         r = requests.post(self.services['camera']+'/camera/', json=payload)
         if r.status_code != 200:
             print("Could not connect to camera: " + str(r.status_code))
-            exit()
+            sys.exit()
         print("Response: " + str(r.json()))
+        self.remote_started = True
+        
+    def stop_remote_mode(self):
+        print("Disconnecting from camera...")
+        payload = {"version": "1.0", "id": 1, "method": "stopRecMode", "params": []}
+        r = requests.post(self.services['camera']+'/camera/', json=payload)
+        if r.status_code != 200:
+            print("Could not disconnect from camera: " + str(r.status_code))
+            sys.exit()
+        print("Response: " + str(r.json()))
+        self.remote_started = False
     
     def getSupportedLiveViewSize(self):
+        if not self.remote_started:
+            self.start_remote_mode()
         print("Requesting supported device resolution ...")
         payload = {"version": "1.0", "id": 1, "method": "getSupportedLiveviewSize", "params": []}
         r = requests.post(self.services['camera']+'/camera/', json=payload)
@@ -31,13 +45,23 @@ class Camera:
         print("Response: " + str(response))
     
     def startLiveView(self, size):
-        #Request preview stream
+        if not self.remote_started:
+            self.start_remote_mode()
         print("Requesting stream...")
         payload = {"version": "1.0", "id": 1, "method": "startLiveviewWithSize", "params": [size]}
         r = requests.post(self.services['camera']+'/camera/', json=payload)
         response = r.json()
         url = response["result"][0]
         return url
+    
+    def stopLiveView(self):
+        if not self.remote_started:
+            return
+        print("Releasing stream...")
+        payload = {"version": "1.0", "id": 1, "method": "stopLiveview", "params": []}
+        r = requests.post(self.services['camera']+'/camera/', json=payload)
+        response = r.json()
+        print(response)
     
     def xml_parser(self, location_xml):
         """
